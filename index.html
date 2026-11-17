@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRXAI v2.0 — AI Software, Web, Game & IT Architect</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Marked.js untuk parsing Markdown & Code Block yang rapi -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    /* =========================================
+       THEME VARIABLES (LIGHT & DARK MODE)
+       ========================================= */
+    :root, [data-theme="light"] {
+      --bg-base: #e5e5e5;
+      --bg-canvas: #dcdcdc;
+      --bg-surface: #ffffff;
+      --bg-surface-alt: #fafafa;
+      --bg-muted: #f4f4f5;
+      --ink-primary: #111111;
+      --ink-secondary: #3f3f46;
+      --ink-muted: #71717a;
+      --border-color: #111111;
+      --shadow-color: #111111;
+      --shadow-hard: 5px 5px 0px var(--shadow-color);
+      --shadow-hard-sm: 3px 3px 0px var(--shadow-color);
+      --shadow-hard-lg: 8px 8px 0px var(--shadow-color);
+      --grid-line: rgba(17, 17, 17, 0.08);
+      --glow-primary: rgba(56, 189, 248, 0.35);
+      --glow-secondary: rgba(168, 85, 247, 0.25);
+      --glow-accent: rgba(255, 255, 255, 0.9);
+      --btn-dark-bg: #18181b;
+      --btn-dark-text: #ffffff;
+      --btn-dark-hover: #27272a;
+      --card-glow: 0 0 25px rgba(56, 189, 248, 0.15);
+    }
+
+    [data-theme="dark"] {
+      --bg-base: #09090b;
+      --bg-canvas: #0c0c0f;
+      --bg-surface: #141418;
+      --bg-surface-alt: #1b1b21;
+      --bg-muted: #22222a;
+      --ink-primary: #f4f4f5;
+      --ink-secondary: #d4d4d8;
+      --ink-muted: #a1a1aa;
+      --border-color: #3f3f46;
+      --shadow-color: #000000;
+      --shadow-hard: 5px 5px 0px #000000, 0 0 18px rgba(56, 189, 248, 0.14);
+      --shadow-hard-sm: 3px 3px 0px #000000, 0 0 10px rgba(56, 189, 248, 0.12);
+      --shadow-hard-lg: 8px 8px 0px #000000, 0 0 28px rgba(56, 189, 248, 0.2);
+      --grid-line: rgba(255, 255, 255, 0.05);
+      --glow-primary: rgba(56, 189, 248, 0.28);
+      --glow-secondary: rgba(16, 185, 129, 0.22);
+      --glow-accent: rgba(56, 189, 248, 0.45);
+      --btn-dark-bg: #f4f4f5;
+      --btn-dark-text: #09090b;
+      --btn-dark-hover: #ffffff;
+      --card-glow: 0 0 30px rgba(56, 189, 248, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    code, pre, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--ink-primary);
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    /* =========================================
+       ANIMATED NEO-BRUTALIST + CYBER LIGHT CANVAS
+       ========================================= */
+    .bg-animated-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background-color: var(--bg-canvas);
+      background-image: 
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridScroll 24s linear infinite;
+      transition: background-color 0.35s ease;
+    }
+
+    @keyframes gridScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
+    }
+
+    /* Ambient Light Orbs (Efek Cahaya Estetik Bergerak) */
+    .ambient-light-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.75;
+      transition: background 0.4s ease;
+    }
+
+    .light-orb-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, var(--glow-primary) 0%, transparent 70%);
+      top: -10%;
+      left: 10%;
+      animation: orbDrift1 16s ease-in-out infinite alternate;
+    }
+
+    .light-orb-2 {
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, var(--glow-secondary) 0%, transparent 70%);
+      bottom: -15%;
+      right: 8%;
+      animation: orbDrift2 20s ease-in-out infinite alternate;
+    }
+
+    .light-orb-3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--glow-accent) 0%, transparent 70%);
+      top: 40%;
+      left: 48%;
+      animation: orbPulse 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbDrift1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(80px, 60px) scale(1.15); }
+    }
+
+    @keyframes orbDrift2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-90px, -50px) scale(1.2); }
+    }
+
+    @keyframes orbPulse {
+      0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.4; }
+      100% { transform: translate(-45%, -55%) scale(1.25); opacity: 0.85; }
+    }
+
+    /* Floating Neo-Brutalist Geometric Shapes */
+    .bg-shape {
+      position: absolute;
+      border: 2px solid var(--border-color);
+      box-shadow: 6px 6px 0px var(--shadow-color), 0 0 15px var(--glow-primary);
+      pointer-events: none;
+      opacity: 0.4;
+      transition: background-color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .bg-shape-1 {
+      width: 120px;
+      height: 120px;
+      background: var(--bg-surface);
+      top: 10%;
+      left: 6%;
+      animation: floatBox1 14s ease-in-out infinite alternate;
+    }
+
+    .bg-shape-2 {
+      width: 180px;
+      height: 70px;
+      background: var(--bg-muted);
+      top: 22%;
+      right: 8%;
+      animation: floatBox2 18s ease-in-out infinite alternate;
+    }
+
+    .bg-shape-3 {
+      width: 90px;
+      height: 90px;
+      background: var(--bg-surface-alt);
+      bottom: 14%;
+      left: 12%;
+      animation: floatBox3 16s ease-in-out infinite alternate;
+    }
+
+    .bg-shape-4 {
+      width: 140px;
+      height: 140px;
+      background: var(--bg-surface);
+      bottom: 10%;
+      right: 10%;
+      animation: floatBox1 20s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatBox1 {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(28px, -22px) rotate(6deg); }
+    }
+
+    @keyframes floatBox2 {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-35px, 25px) rotate(-5deg); }
+    }
+
+    @keyframes floatBox3 {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(22px, 30px) rotate(8deg); }
+    }
+
+    /* =========================================
+       NEO-BRUTALISM + CYBER LIGHT UTILITIES
+       ========================================= */
+    .nb-box {
+      background-color: var(--bg-surface);
+      color: var(--ink-primary);
+      border: 2.5px solid var(--border-color);
+      box-shadow: var(--shadow-hard), var(--card-glow);
+      border-radius: 6px;
+      position: relative;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    }
+
+    .nb-surface-alt {
+      background-color: var(--bg-surface-alt);
+      color: var(--ink-primary);
+      border-color: var(--border-color);
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nb-muted {
+      background-color: var(--bg-muted);
+      color: var(--ink-primary);
+      border-color: var(--border-color);
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nb-btn {
+      border: 2px solid var(--border-color);
+      box-shadow: var(--shadow-hard-sm);
+      border-radius: 6px;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+
+    /* Efek kilauan cahaya saat tombol di-hover */
+    .nb-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: left 0.55s ease;
+      pointer-events: none;
+    }
+
+    .nb-btn:hover::after {
+      left: 140%;
+    }
+
+    .nb-btn:hover {
+      transform: translate(-1.5px, -1.5px);
+      box-shadow: 4px 4px 0px var(--shadow-color), 0 0 14px var(--glow-primary);
+    }
+
+    .nb-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--shadow-color);
+    }
+
+    .nb-btn-primary {
+      background-color: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+    }
+
+    .nb-btn-primary:hover {
+      background-color: var(--btn-dark-hover);
+    }
+
+    .nb-btn-secondary {
+      background-color: var(--bg-surface);
+      color: var(--ink-primary);
+    }
+
+    .nb-btn-secondary:hover {
+      background-color: var(--bg-muted);
+    }
+
+    .nb-input {
+      border: 2px solid var(--border-color);
+      box-shadow: 3px 3px 0px var(--shadow-color);
+      border-radius: 6px;
+      background: var(--bg-surface);
+      color: var(--ink-primary);
+      outline: none;
+      transition: box-shadow 0.2s ease, transform 0.15s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nb-input:focus {
+      background: var(--bg-surface-alt);
+      box-shadow: 4px 4px 0px var(--shadow-color), 0 0 16px var(--glow-primary);
+    }
+
+    /* Animated Light Sweep Border for Special Containers */
+    .light-sweep-border {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .light-sweep-border::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #38bdf8, #ffffff, transparent);
+      animation: topBeamSweep 4.5s linear infinite;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    @keyframes topBeamSweep {
+      0% { left: -60%; }
+      100% { left: 160%; }
+    }
+
+    /* =========================================
+       PROFILE PAGE INTERACTIVE ANIMATIONS
+       ========================================= */
+    .profile-aura-ring {
+      position: relative;
+    }
+
+    .profile-aura-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 10px;
+      background: conic-gradient(from 0deg, #38bdf8, #a855f7, #10b981, #ffffff, #38bdf8);
+      animation: spinAura 5s linear infinite;
+      z-index: 0;
+      filter: blur(4px);
+      opacity: 0.85;
+    }
+
+    @keyframes spinAura {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-float-card {
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+      transform-style: preserve-3d;
+    }
+
+    .profile-float-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 6px 6px 0px var(--shadow-color), 0 0 24px var(--glow-primary);
+    }
+
+    .profile-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #38bdf8;
+      border: 1px solid var(--border-color);
+      pointer-events: none;
+      animation: particleFloat 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+      100% { transform: translateY(-18px) rotate(45deg); opacity: 1; }
+    }
+
+    /* =========================================
+       3-SECOND LOADING SCREEN ANIMATIONS
+       ========================================= */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: #0e0e11;
+      background-image: 
+        radial-gradient(circle at 50% 45%, rgba(56, 189, 248, 0.18), transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 32px 32px, 32px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+
+    #loading-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-logo-pulse {
+      animation: logoBounce 1.1s infinite alternate ease-in-out;
+      box-shadow: 4px 4px 0px #71717a, 0 0 25px rgba(56, 189, 248, 0.45);
+    }
+
+    @keyframes logoBounce {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-6px); }
+    }
+
+    .loader-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #e4e4e7, #38bdf8, #ffffff);
+      animation: loadThreeSeconds 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes loadThreeSeconds {
+      0% { width: 0%; }
+      40% { width: 55%; }
+      80% { width: 88%; }
+      100% { width: 100%; }
+    }
+
+    /* =========================================
+       CUSTOM SCROLLBAR & MARKDOWN STYLING
+       ========================================= */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-muted);
+      border-left: 1px solid var(--border-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #52525b;
+      border: 1px solid var(--border-color);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #18181b;
+    }
+
+    /* Markdown inside AI chat bubbles */
+    .markdown-body p {
+      margin-bottom: 0.65rem;
+      line-height: 1.65;
+    }
+    .markdown-body p:last-child {
+      margin-bottom: 0;
+    }
+    .markdown-body ul, .markdown-body ol {
+      margin-left: 1.25rem;
+      margin-bottom: 0.65rem;
+      list-style-type: disc;
+    }
+    .markdown-body ol {
+      list-style-type: decimal;
+    }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+      font-weight: 700;
+      margin-top: 0.9rem;
+      margin-bottom: 0.45rem;
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 0.2rem;
+    }
+    .markdown-body pre {
+      background-color: #0d0d10;
+      color: #f4f4f5;
+      padding: 2.35rem 0.95rem 0.9rem 0.95rem;
+      border-radius: 6px;
+      border: 2px solid var(--border-color);
+      box-shadow: 3px 3px 0px #52525b, 0 0 15px rgba(56, 189, 248, 0.12);
+      overflow-x: auto;
+      margin: 0.85rem 0;
+      position: relative;
+      font-size: 0.85rem;
+    }
+    .markdown-body code:not(pre code) {
+      background-color: var(--bg-muted);
+      color: var(--ink-primary);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      font-size: 0.85em;
+    }
+
+    .copy-code-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: #27272a;
+      color: #f4f4f5;
+      border: 1px solid #52525b;
+      padding: 2px 9px;
+      font-size: 11px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .copy-code-btn:hover {
+      background: #38bdf8;
+      color: #09090b;
+      border-color: #09090b;
+      font-weight: 700;
+    }
+
+    .code-lang-tag {
+      position: absolute;
+      top: 7px;
+      left: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #a1a1aa;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    /* Typing dots animation */
+    .typing-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background-color: var(--ink-primary);
+      border-radius: 2px;
+      animation: typingBlink 1.2s infinite ease-in-out both;
+    }
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typingBlink {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-sky-400 selection:text-black">
+
+  <!-- =========================================================
+       ANIMATED BACKGROUND LAYER (Cyber Light Orbs + Neo-Brutalist Grid)
+       ========================================================= -->
+  <div class="bg-animated-canvas" aria-hidden="true">
+    <div class="ambient-light-orb light-orb-1"></div>
+    <div class="ambient-light-orb light-orb-2"></div>
+    <div class="ambient-light-orb light-orb-3"></div>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <div class="bg-shape bg-shape-3"></div>
+    <div class="bg-shape bg-shape-4"></div>
+  </div>
+
+  <!-- =========================================================
+       3-SECOND LOADING SCREEN
+       ========================================================= -->
+  <div id="loading-screen">
+    <div class="bg-white border-2 border-black shadow-[8px_8px_0px_#52525b,0_0_40px_rgba(56,189,248,0.3)] p-8 rounded-md max-w-sm w-[90%] text-center relative overflow-hidden">
+      <div class="w-20 h-20 mx-auto mb-4 bg-zinc-900 border-2 border-black rounded-md flex items-center justify-center p-2 loader-logo-pulse">
+        <img 
+          src="https://cdn.phototourl.com/member/2026-11-15-88e67d02-345c-46b1-ae13-9d89bc410329.png" 
+          alt="FRXAI Logo" 
+          class="w-full h-full object-contain"
+          onerror="this.src='https://placehold.co/80x80/111111/FFFFFF?text=FRX'"
+        />
+      </div>
+      <div class="inline-block bg-zinc-900 text-sky-300 font-mono text-[10px] px-2 py-0.5 rounded-sm mb-1">
+        VERSION 2.0 • RPL & IT CORE
+      </div>
+      <h1 class="text-2xl font-bold tracking-tight text-zinc-900">FRXAI</h1>
+      <p class="text-xs font-mono text-zinc-600 mt-1 mb-5">MEMUAT OTAK AI RPL, GAME, WEB & SECURITY...</p>
+      
+      <!-- Neo-Brutalist Progress Bar -->
+      <div class="w-full h-5 bg-zinc-900 border-2 border-black p-0.5 rounded-sm shadow-[3px_3px_0px_#111111]">
+        <div class="loader-progress-fill"></div>
+      </div>
+      <div class="flex justify-between items-center mt-2 text-[11px] font-mono text-zinc-700">
+        <span>SYSTEM READY</span>
+        <span id="loading-percent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TOP HEADER BAR (Menu `=` + Branding FRXAI v2.0 + Theme Toggle + API Status)
+       ========================================================= -->
+  <header class="relative z-30 w-full px-3 sm:px-6 pt-3 pb-2">
+    <div class="max-w-[1440px] mx-auto nb-box light-sweep-border px-3 sm:px-5 py-2.5 flex items-center justify-between">
+      
+      <!-- Kiri: Tombol Menu `=` & Logo + Nama Aplikasi -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button 
+          id="menu-toggle-btn" 
+          onclick="toggleSidebar()" 
+          aria-label="Buka Menu Navigasi"
+          class="nb-btn nb-btn-primary w-11 h-11 flex flex-col items-center justify-center gap-1.5 text-xl font-mono"
+          title="Menu Navigasi"
+        >
+          <span class="block w-5 h-0.5 bg-current"></span>
+          <span class="block w-5 h-0.5 bg-current"></span>
+        </button>
+
+        <div class="flex items-center gap-2.5 cursor-pointer" onclick="navigateTo('dashboard')">
+          <div class="w-10 h-10 bg-zinc-900 border-2 border-black shadow-[2px_2px_0px_#111111,0_0_12px_rgba(56,189,248,0.35)] rounded-md p-1 flex items-center justify-center">
+            <img 
+              src="https://cdn.phototourl.com/member/2026-11-15-88e67d02-345c-46b1-ae13-9d89bc410329.png" 
+              alt="Logo FRXAI" 
+              class="w-full h-full object-contain"
+              onerror="this.src='https://placehold.co/64x64/111111/FFFFFF?text=FX'"
+            />
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-lg sm:text-xl tracking-tight leading-none">FRXAI</span>
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-sky-400 text-zinc-950 border border-black rounded-sm">
+                v2.0
+              </span>
+              <span id="active-page-badge" class="hidden md:inline-block text-[11px] font-mono font-bold px-2 py-0.5 nb-muted border rounded-sm">
+                DASHBOARD AI
+              </span>
+            </div>
+            <p class="text-[11px] opacity-75 font-mono hidden sm:block">RPL, Web, App, Game Dev & Cybersecurity Core</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanan: Tombol Mode Gelap/Terang + Status Koneksi Model -->
+      <div class="flex items-center gap-2 sm:gap-2.5">
+        <!-- Toggle Dark / Light Mode -->
+        <button 
+          type="button"
+          id="theme-toggle-btn"
+          onclick="toggleThemeMode()" 
+          class="nb-btn nb-btn-secondary px-2.5 sm:px-3 py-1.5 text-xs font-mono flex items-center gap-1.5"
+          title="Ganti Tema Gelap / Terang"
+        >
+          <span id="theme-icon">☀️</span>
+          <span id="theme-label" class="hidden sm:inline">TERANG</span>
+        </button>
+
+        <!-- Status API Key -->
+        <button 
+          onclick="navigateTo('apikey')" 
+          class="nb-btn nb-btn-secondary px-3 py-1.5 text-xs font-mono flex items-center gap-2"
+          title="Pengaturan API Key & Model Gemini"
+        >
+          <span id="status-dot" class="w-2.5 h-2.5 rounded-full bg-zinc-400 border border-black"></span>
+          <span id="header-model-label" class="max-w-[95px] sm:max-w-[170px] truncate">Set API Key</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       SIDEBAR DRAWER MENU (Muncul saat tombol `=` diklik)
+       ========================================================= -->
+  <div 
+    id="sidebar-backdrop" 
+    onclick="closeSidebar()" 
+    class="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40 hidden transition-opacity"
+  ></div>
+
+  <aside 
+    id="sidebar-drawer" 
+    style="background-color: var(--bg-surface); color: var(--ink-primary); border-color: var(--border-color);"
+    class="fixed top-0 left-0 h-full w-72 sm:w-80 border-r-[3px] shadow-[8px_0px_0px_#111111,0_0_30px_rgba(56,189,248,0.2)] z-50 transform -translate-x-full transition-transform duration-200 ease-out flex flex-col justify-between p-4"
+  >
+    <div>
+      <!-- Header Drawer -->
+      <div class="flex items-center justify-between pb-4 mb-4 border-b-2" style="border-color: var(--border-color);">
+        <div class="flex items-center gap-2.5">
+          <img 
+            src="https://cdn.phototourl.com/member/2026-11-15-88e67d02-345c-46b1-ae13-9d89bc410329.png" 
+            alt="FRXAI" 
+            class="w-9 h-9 bg-zinc-900 p-1 rounded border-2 border-black"
+            onerror="this.src='https://placehold.co/64x64/111111/FFFFFF?text=FX'"
+          />
+          <div>
+            <h2 class="font-bold text-base leading-tight">MENU FRXAI v2.0</h2>
+            <p class="text-[11px] font-mono opacity-60">Navigasi Utama</p>
+          </div>
+        </div>
+        <button onclick="closeSidebar()" class="nb-btn nb-btn-secondary px-2.5 py-1 text-sm font-mono">
+          ✕
+        </button>
+      </div>
+
+      <!-- 5 Menu Utama -->
+      <nav class="space-y-2.5">
+        <button 
+          onclick="navigateTo('dashboard')" 
+          data-nav="dashboard"
+          class="nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-primary"
+        >
+          <span class="font-mono text-base">01</span>
+          <div>
+            <div class="text-sm font-bold">Halaman Dashboard</div>
+            <div class="text-[11px] opacity-80 font-normal">Jendela Chat AI Utama</div>
+          </div>
+        </button>
+
+        <button 
+          onclick="navigateTo('apikey')" 
+          data-nav="apikey"
+          class="nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-secondary"
+        >
+          <span class="font-mono text-base">02</span>
+          <div>
+            <div class="text-sm font-bold">Halaman API Key</div>
+            <div class="text-[11px] opacity-70 font-normal">Koneksi Google AI Studio</div>
+          </div>
+        </button>
+
+        <button 
+          onclick="navigateTo('newchat')" 
+          data-nav="newchat"
+          class="nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-secondary"
+        >
+          <span class="font-mono text-base">03</span>
+          <div>
+            <div class="text-sm font-bold">Riwayat Baru</div>
+            <div class="text-[11px] opacity-70 font-normal">Sesi Baru, Ekspor & Arsip</div>
+          </div>
+        </button>
+
+        <button 
+          onclick="navigateTo('clearhistory')" 
+          data-nav="clearhistory"
+          class="nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-secondary"
+        >
+          <span class="font-mono text-base">04</span>
+          <div>
+            <div class="text-sm font-bold">Hapus Riwayat Chat</div>
+            <div class="text-[11px] opacity-70 font-normal">Bersihkan Memori Database</div>
+          </div>
+        </button>
+
+        <button 
+          onclick="navigateTo('profile')" 
+          data-nav="profile"
+          class="nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-secondary"
+        >
+          <span class="font-mono text-base">05</span>
+          <div>
+            <div class="text-sm font-bold">Halaman Profil</div>
+            <div class="text-[11px] opacity-70 font-normal">Info Developer & Saluran</div>
+          </div>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Footer Sidebar -->
+    <div class="pt-3 border-t-2 text-xs font-mono opacity-80" style="border-color: var(--border-color);">
+      <div class="flex justify-between">
+        <span>DB Memori:</span>
+        <span id="sidebar-msg-count" class="font-bold">0 Pesan</span>
+      </div>
+      <div class="mt-1 text-[11px]">Dev: <strong>Faiz Muttaqien</strong> • v2.0</div>
+    </div>
+  </aside>
+
+  <!-- =========================================================
+       TOAST NOTIFICATION BOX
+       ========================================================= -->
+  <div 
+    id="toast-box" 
+    class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-zinc-900 text-white border-2 border-sky-400 shadow-[5px_5px_0px_#111111,0_0_20px_rgba(56,189,248,0.4)] px-4 py-3 rounded-md text-sm font-medium transition-all"
+  >
+    <div class="flex items-center justify-between gap-3">
+      <span id="toast-message">Notifikasi sistem</span>
+      <button onclick="hideToast()" class="text-xs font-mono bg-sky-400 text-black px-2 py-0.5 rounded-sm font-bold">OK</button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MAIN CONTENT AREA (All 5 Pages Managed Cleanly)
+       ========================================================= -->
+  <main class="relative z-10 flex-1 w-full px-3 sm:px-6 pb-4 pt-1 flex flex-col">
+    
+    <!-- =======================================================
+         PAGE 1: HALAMAN DASHBOARD (JENDELA CHAT YANG LEBAR & PANJANG)
+         ======================================================= -->
+    <section id="page-dashboard" class="page-view w-full max-w-[1440px] mx-auto flex-1 flex flex-col">
+      <div class="nb-box light-sweep-border flex-1 flex flex-col w-full min-h-[calc(100vh-105px)] max-h-[calc(100vh-105px)] overflow-hidden">
+        
+        <!-- Area Daftar Pesan Chat -->
+        <div 
+          id="chat-messages-container" 
+          class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 nb-surface-alt"
+        >
+          <!-- Pesan sambutan awal otomatis dirender oleh JS -->
+        </div>
+
+        <!-- Indikator AI Sedang Berpikir (Jeda 3 Detik) -->
+        <div id="ai-thinking-bar" class="hidden px-4 sm:px-6 py-2.5 nb-muted border-t-2 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+            <span class="text-xs sm:text-sm font-mono font-bold">
+              FRXAI v2.0 sedang menganalisis arsitektur RPL, kode & keamanan sistem...
+            </span>
+          </div>
+          <span id="thinking-countdown" class="text-xs font-mono bg-sky-400 text-black font-bold px-2 py-0.5 rounded-sm border border-black">3.0s</span>
+        </div>
+
+        <!-- Form Input Chat Bawah -->
+        <form 
+          id="chat-form" 
+          onsubmit="handleSendMessage(event)" 
+          style="background-color: var(--bg-surface); border-color: var(--border-color);"
+          class="p-3 sm:p-4 border-t-[2.5px] flex items-end gap-2.5 sm:gap-3"
+        >
+          <textarea 
+            id="chat-input" 
+            rows="2"
+            placeholder="Tanyakan seputar RPL, pembuatan website, aplikasi, game dev, cybersecurity, atau kode IT..."
+            class="nb-input flex-1 p-3 text-sm sm:text-base resize-none max-h-36 leading-snug"
+            onkeydown="handleInputKeydown(event)"
+          ></textarea>
+          <button 
+            type="submit" 
+            id="send-btn"
+            class="nb-btn nb-btn-primary px-5 sm:px-7 py-3.5 text-sm sm:text-base flex items-center gap-2 shrink-0"
+          >
+            <span>KIRIM</span>
+            <span class="font-mono">→</span>
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PAGE 2: HALAMAN API KEY (Google AI Studio + Model Otomatis/Manual)
+         ======================================================= -->
+    <section id="page-apikey" class="page-view hidden w-full max-w-4xl mx-auto py-3">
+      <div class="nb-box light-sweep-border p-5 sm:p-8 space-y-6">
+        
+        <div class="border-b-2 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2" style="border-color: var(--border-color);">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold">Konfigurasi API Key & Model Gemini</h2>
+            <p class="text-xs sm:text-sm opacity-75 mt-1">Hubungkan otak FRXAI v2.0 dengan Google AI Studio dan simpan ke database lokal browser.</p>
+          </div>
+          <span class="inline-block self-start font-mono text-xs bg-sky-400 text-black font-bold border border-black px-3 py-1 rounded-sm">LOCALSTORAGE DB #1</span>
+        </div>
+
+        <!-- Panduan Cara Menggunakan & Mengambil API Key -->
+        <div class="nb-muted border-2 p-4 rounded-md shadow-[3px_3px_0px_var(--shadow-color)]">
+          <h3 class="font-bold text-sm sm:text-base mb-2 flex items-center gap-2">
+            <span class="bg-sky-400 text-black border border-black font-mono text-xs px-2 py-0.5">PANDUAN</span>
+            Cara Mendapatkan API Key Google AI Studio
+          </h3>
+          <ol class="list-decimal list-inside text-xs sm:text-sm opacity-90 space-y-1.5 leading-relaxed">
+            <li>Buka situs resmi Google AI Studio di <a href="https://aistudio.google.com" target="_blank" rel="noopener noreferrer" class="underline font-bold hover:text-sky-500 px-1">https://aistudio.google.com</a> dan login menggunakan akun Google Anda.</li>
+            <li>Klik menu <strong>"Get API key"</strong> lalu tekan tombol <strong>"Create API key"</strong>.</li>
+            <li>Salin (Copy) kode API Key yang muncul (biasanya diawali dengan <code class="nb-surface-alt px-1 border rounded">AIzaSy...</code>).</li>
+            <li>Tempelkan API Key tersebut pada kolom di bawah ini, pilih model Gemini (otomatis atau ketik manual), lalu klik <strong>Simpan Konfigurasi</strong>.</li>
+          </ol>
+        </div>
+
+        <!-- Form Input API Key & Pemilihan Model -->
+        <div class="space-y-5">
+          <!-- Input API Key -->
+          <div>
+            <label for="api-key-input" class="block text-sm font-bold mb-1.5">
+              1. Google AI Studio API Key
+            </label>
+            <div class="flex gap-2">
+              <input 
+                type="password" 
+                id="api-key-input" 
+                placeholder="Tempel API Key Anda di sini (contoh: AIzaSy...)" 
+                class="nb-input flex-1 px-3.5 py-2.5 text-sm font-mono"
+              />
+              <button 
+                type="button" 
+                onclick="toggleApiKeyVisibility()" 
+                class="nb-btn nb-btn-secondary px-3.5 py-2 text-xs font-mono"
+              >
+                LIHAT
+              </button>
+            </div>
+          </div>
+
+          <!-- Mode Pemilihan Model: Otomatis vs Manual -->
+          <div class="nb-surface-alt border-2 p-4 rounded-md space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <label class="text-sm font-bold">2. Pemilihan Model Gemini AI</label>
+              <div class="flex gap-2">
+                <button 
+                  type="button" 
+                  id="btn-mode-auto" 
+                  onclick="setModelSelectMode('auto')" 
+                  class="nb-btn px-3 py-1 text-xs nb-btn-primary"
+                >
+                  Pilih Otomatis
+                </button>
+                <button 
+                  type="button" 
+                  id="btn-mode-manual" 
+                  onclick="setModelSelectMode('manual')" 
+                  class="nb-btn px-3 py-1 text-xs nb-btn-secondary"
+                >
+                  Ketik Manual
+                </button>
+              </div>
+            </div>
+
+            <!-- Pilihan Otomatis (Dropdown) -->
+            <div id="model-auto-wrapper">
+              <select id="model-select-dropdown" class="nb-input w-full px-3.5 py-2.5 text-sm font-mono">
+                <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Cepat, Cerdas & Stabil - Rekomendasi)</option>
+                <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Arsitektur RPL, Game & Kode Kompleks)</option>
+                <option value="gemini-4-hydrogen">gemini-4-hydrogen (Respons Cepat)</option>
+                <option value="gemini-3.5-flash">gemini-3.5-flash (Engineering & Debugging)</option>
+                <option value="gemini-3.6-flash">gemini-3.6-flash (Konteks Panjang)</option>
+              </select>
+              <p class="text-[11px] opacity-65 mt-1.5 font-mono">Sistem otomatis memilih parameter terbaik untuk model ini.</p>
+            </div>
+
+            <!-- Pilihan Manual (Ketik Nama Model) -->
+            <div id="model-manual-wrapper" class="hidden">
+              <input 
+                type="text" 
+                id="model-manual-input" 
+                placeholder="Ketik ID model Gemini manual (contoh: gemini-2.5-flash)" 
+                class="nb-input w-full px-3.5 py-2.5 text-sm font-mono"
+              />
+              <p class="text-[11px] opacity-65 mt-1.5 font-mono">Masukkan nama model resmi dari dokumentasi Google AI Studio.</p>
+            </div>
+          </div>
+
+          <!-- Tombol Aksi Simpan & Test -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button 
+              type="button" 
+              onclick="saveApiConfig()" 
+              class="nb-btn nb-btn-primary px-6 py-3 text-sm"
+            >
+              SIMPAN KONFIGURASI KE DATABASE
+            </button>
+            <button 
+              type="button" 
+              onclick="testApiConnection()" 
+              id="test-conn-btn"
+              class="nb-btn nb-btn-secondary px-5 py-3 text-sm"
+            >
+              TES KONEKSI GEMINI
+            </button>
+            <button 
+              type="button" 
+              onclick="navigateTo('dashboard')" 
+              class="nb-btn nb-btn-secondary px-5 py-3 text-sm ml-auto"
+            >
+              KEMBALI KE CHAT →
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PAGE 3: HALAMAN RIWAYAT BARU (Arsip Sesi, Ekspor & Buat Sesi Baru)
+         ======================================================= -->
+    <section id="page-newchat" class="page-view hidden w-full max-w-4xl mx-auto py-3">
+      <div class="nb-box light-sweep-border p-5 sm:p-8 space-y-6">
+        <div class="border-b-2 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: var(--border-color);">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold">Riwayat Baru & Sesi Tersimpan</h2>
+            <p class="text-xs sm:text-sm opacity-75 mt-1">Mulai proyek RPL/IT baru, lanjutkan diskusi lama, atau ekspor catatan kode Anda.</p>
+          </div>
+          <button 
+            onclick="createNewChatSession()" 
+            class="nb-btn nb-btn-primary px-5 py-2.5 text-sm shrink-0"
+          >
+            + MULAI RIWAYAT BARU
+          </button>
+        </div>
+
+        <div class="nb-muted border-2 p-4 rounded-md text-xs sm:text-sm">
+          <strong>Info Memori Otak AI v2.0:</strong> Setiap percakapan di dalam satu sesi otomatis tersimpan ke dalam <strong>Database Memori Lokal</strong> sehingga FRXAI tetap nyambung dengan arsitektur aplikasi, game, atau sistem yang sedang Anda bangun.
+        </div>
+
+        <div>
+          <h3 class="font-bold text-sm uppercase tracking-wider opacity-75 mb-3 font-mono">Daftar Sesi Tersimpan di Database:</h3>
+          <div id="sessions-list-container" class="space-y-3">
+            <!-- Daftar sesi dirender oleh JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PAGE 4: HALAMAN HAPUS RIWAYAT CHAT
+         ======================================================= -->
+    <section id="page-clearhistory" class="page-view hidden w-full max-w-2xl mx-auto py-6">
+      <div class="nb-box light-sweep-border p-6 sm:p-8 text-center space-y-5">
+        <div class="w-16 h-16 mx-auto bg-zinc-900 text-sky-400 border-2 border-black shadow-[4px_4px_0px_#71717a,0_0_20px_rgba(56,189,248,0.3)] rounded-md flex items-center justify-center font-mono text-2xl font-bold">
+          !
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold">Hapus Riwayat Chat & Memori AI?</h2>
+        <p class="text-sm opacity-80 max-w-md mx-auto leading-relaxed">
+          Tindakan ini akan membersihkan seluruh riwayat percakapan dan ingatan konteks AI dari database browser Anda. Konfigurasi <strong>API Key</strong> Anda akan tetap aman dan tidak ikut terhapus.
+        </p>
+
+        <div class="nb-muted border-2 p-3 rounded-md max-w-sm mx-auto font-mono text-xs">
+          Total tersimpan saat ini: <strong id="clear-page-stats">0 Sesi / 0 Pesan</strong>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <button 
+            onclick="confirmClearAllHistory()" 
+            class="nb-btn nb-btn-primary px-6 py-3 text-sm w-full sm:w-auto"
+          >
+            YA, HAPUS SEMUA RIWAYAT
+          </button>
+          <button 
+            onclick="navigateTo('dashboard')" 
+            class="nb-btn nb-btn-secondary px-6 py-3 text-sm w-full sm:w-auto"
+          >
+            BATALKAN & KEMBALI
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PAGE 5: HALAMAN PROFIL (Efek Bergerak Interaktif & Cahaya Estetik)
+         ======================================================= -->
+    <section id="page-profile" class="page-view hidden w-full max-w-3xl mx-auto py-3">
+      <div class="nb-box light-sweep-border p-6 sm:p-8 space-y-6 relative overflow-hidden">
+        
+        <!-- Partikel Cahaya Bergerak di Sudut Profil -->
+        <div class="profile-particle" style="top: 14px; right: 24px; animation-delay: 0s;"></div>
+        <div class="profile-particle" style="top: 42px; right: 56px; width: 4px; height: 4px; background: #a855f7; animation-delay: 1.5s;"></div>
+        <div class="profile-particle" style="bottom: 20px; left: 22px; background: #10b981; animation-delay: 2.2s;"></div>
+
+        <!-- Header Profil Aplikasi dengan Aura Ring Berputar -->
+        <div class="flex flex-col sm:flex-row items-center gap-6 border-b-2 pb-6 text-center sm:text-left" style="border-color: var(--border-color);">
+          <div class="profile-aura-ring shrink-0">
+            <div class="relative z-10 w-24 h-24 bg-zinc-900 border-2 border-black shadow-[5px_5px_0px_#111111] rounded-md p-2.5 flex items-center justify-center loader-logo-pulse">
+              <img 
+                src="https://cdn.phototourl.com/member/2026-11-15-88e67d02-345c-46b1-ae13-9d89bc410329.png" 
+                alt="Logo FRXAI" 
+                class="w-full h-full object-contain"
+                onerror="this.src='https://placehold.co/96x96/111111/FFFFFF?text=FRXAI'"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1.5">
+              <span class="inline-block font-mono text-xs bg-sky-400 text-black font-bold border border-black px-2 py-0.5 rounded-sm">FRXAI v2.0 PRO</span>
+              <span class="inline-block font-mono text-xs nb-muted border px-2 py-0.5 rounded-sm">CYBER-LIGHT EDITION</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold">FRXAI</h2>
+            <p class="text-sm opacity-80 mt-1.5 leading-relaxed">
+              Asisten Kecerdasan Buatan khusus bidang <strong>Rekayasa Perangkat Lunak (RPL), Informatika (IT), Pembuatan Website, Aplikasi, Pengembangan Game, dan Cybersecurity</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Kartu Keahlian Otak AI (Interactive Hover Cards) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center font-mono text-xs">
+          <div class="profile-float-card nb-surface-alt border-2 p-2.5 rounded-md">
+            <div class="text-sky-500 font-bold mb-0.5">[01] RPL</div>
+            <div class="opacity-80 text-[11px]">Software & App</div>
+          </div>
+          <div class="profile-float-card nb-surface-alt border-2 p-2.5 rounded-md">
+            <div class="text-emerald-500 font-bold mb-0.5">[02] WEB</div>
+            <div class="opacity-80 text-[11px]">Fullstack & UI</div>
+          </div>
+          <div class="profile-float-card nb-surface-alt border-2 p-2.5 rounded-md">
+            <div class="text-purple-500 font-bold mb-0.5">[03] GAME</div>
+            <div class="opacity-80 text-[11px]">Engine & Logic</div>
+          </div>
+          <div class="profile-float-card nb-surface-alt border-2 p-2.5 rounded-md">
+            <div class="text-amber-500 font-bold mb-0.5">[04] SECURITY</div>
+            <div class="opacity-80 text-[11px]">Cyber & Network</div>
+          </div>
+        </div>
+
+        <!-- Informasi Developer & Saluran WhatsApp dengan Efek Gerak -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="profile-float-card light-sweep-border nb-surface-alt border-2 p-4 rounded-md shadow-[4px_4px_0px_var(--shadow-color)]">
+            <span class="text-xs font-mono opacity-65 uppercase">Developer Aplikasi</span>
+            <h3 class="text-lg font-bold mt-1">Faiz Muttaqien</h3>
+            <p class="text-xs opacity-75 mt-1">Software, Web & Game Developer • Arsitek Sistem FRXAI</p>
+            <div class="mt-3 inline-flex items-center gap-1.5 text-[11px] font-mono bg-sky-400/20 border border-sky-500/40 px-2 py-0.5 rounded-sm">
+              <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+              <span>Active Maintainer</span>
+            </div>
+          </div>
+
+          <div class="profile-float-card light-sweep-border nb-surface-alt border-2 p-4 rounded-md shadow-[4px_4px_0px_var(--shadow-color)] flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-mono opacity-65 uppercase">Komunitas & Update</span>
+              <h3 class="text-lg font-bold mt-1">Saluran WhatsApp Resmi</h3>
+            </div>
+            <a 
+              href="https://whatsapp.com/channel/0029Vb9P4d230LKG7HJFKb3V" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="nb-btn nb-btn-primary text-center py-2.5 px-4 text-xs font-mono mt-3 block"
+            >
+              GABUNG SALURAN WHATSAPP ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Spesifikasi Sistem & Database -->
+        <div class="nb-muted border-2 p-4 rounded-md space-y-2 text-xs font-mono">
+          <div class="flex justify-between border-b pb-1.5" style="border-color: var(--border-color);">
+            <span class="opacity-70">Versi Aplikasi:</span>
+            <span class="font-bold">FRXAI v2.0 (Latest Build)</span>
+          </div>
+          <div class="flex justify-between border-b pb-1.5" style="border-color: var(--border-color);">
+            <span class="opacity-70">Engine AI:</span>
+            <span class="font-bold">Google Gemini REST API (AI Studio)</span>
+          </div>
+          <div class="flex justify-between border-b pb-1.5" style="border-color: var(--border-color);">
+            <span class="opacity-70">Database API Key:</span>
+            <span class="font-bold">LocalStorage (frxai_api_db_v1)</span>
+          </div>
+          <div class="flex justify-between border-b pb-1.5" style="border-color: var(--border-color);">
+            <span class="opacity-70">Database Otak & Memori AI:</span>
+            <span class="font-bold">LocalStorage (frxai_memory_db_v1)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-70">Jeda Pemrosesan Respons:</span>
+            <span class="font-bold">3.0 Detik Sinkronisasi</span>
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end">
+          <button onclick="navigateTo('dashboard')" class="nb-btn nb-btn-primary px-6 py-2.5 text-sm">
+            KEMBALI KE DASHBOARD
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       JAVASCRIPT LOGIC & LOCALSTORAGE DATABASES
+       ========================================================= -->
+  <script>
+    /**
+     * =========================================================
+     * 1. KONFIGURASI DATABASE LOCALSTORAGE (API, MEMORI & TEMA)
+     * =========================================================
+     */
+    const DB_KEYS = {
+      API_CONFIG: 'frxai_api_db_v1',       // Database 1: Menyimpan API Key & Model (Tetap Sama)
+      CHAT_MEMORY: 'frxai_memory_db_v1',   // Database 2: Menyimpan Otak/Memori & Riwayat Sesi AI (Tetap Sama)
+      THEME_MODE: 'frxai_theme_v2'         // Database 3: Menyimpan Preferensi Tema Gelap/Terang
+    };
+
+    // System Instruction / Otak Utama FRXAI v2.0 (Fokus Khusus RPL, IT, Web, App, Game, Security & Teknologi)
+    const FRXAI_SYSTEM_PROMPT = `Kamu adalah FRXAI v2.0, asisten kecerdasan buatan spesialis tingkat tinggi yang dikembangkan oleh Faiz Muttaqien.
+KEAHLIAN DAN FOKUS UTAMAMU ADALAH KHUSUS PADA BIDANG BERIKUT:
+1. Rekayasa Perangkat Lunak (RPL / Software Engineering): analisis kebutuhan, SDLC, UML, design pattern, clean architecture, struktur data, dan algoritma.
+2. Informatika & Teknologi Informasi (IT): sistem operasi, cloud computing, DevOps, jaringan komputer, server, dan infrastruktur IT.
+3. Pembuatan Website & Aplikasi: pengembangan web frontend & backend (HTML, CSS, Tailwind, JavaScript, TypeScript, React, Vue, Next.js, PHP, Laravel, Node.js, Python, Go, Java), aplikasi mobile (Android/iOS/Flutter/React Native), dan aplikasi desktop.
+4. Pengembangan Game (Game Development): logika gameplay, physics 2D/3D, Unity, Godot, Unreal Engine, WebGL/Three.js, dan arsitektur game.
+5. Keamanan Siber (Cybersecurity / Security): keamanan aplikasi web (OWASP), enkripsi, autentikasi (JWT/OAuth), keamanan jaringan, audit kerentanan secara etis, dan perlindungan data.
+6. Database & Teknologi Terkait: SQL (MySQL, PostgreSQL), NoSQL (MongoDB, Firebase), REST API, GraphQL, dan teknologi modern lainnya.
+
+ATURAN BATASAN TOPIK (WAJIB DIPATUHI):
+- Kamu HANYA membahas topik seputar Rekayasa Perangkat Lunak (RPL), Informatika/IT, Pembuatan Website, Pembuatan Aplikasi, Pengembangan Game, Keamanan Siber (Security), Pemrograman, dan Bidang Teknologi.
+- Jika pengguna bertanya di luar bidang tersebut (misalnya gosip, resep masakan, politik, hiburan non-teknologi, dll), tolak dengan sopan dan singkat, lalu arahkan pengguna kembali untuk berdiskusi seputar RPL, IT, pemrograman, website, aplikasi, game, atau cybersecurity.
+
+ATURAN KOMUNIKASI:
+- Jawab dengan bahasa Indonesia yang jelas, terstruktur, teknis namun mudah dipahami, dan profesional.
+- Selalu ingat konteks percakapan sebelumnya agar diskusi proyek tetap nyambung.
+- Sertakan contoh kode yang bersih, lengkap, dan siap dijalankan apabila pengguna meminta pembuatan fitur atau program.`;
+
+    // State Aplikasi
+    let appState = {
+      apiKey: '',
+      model: 'gemini-2.5-flash',
+      modelMode: 'auto', // 'auto' atau 'manual'
+      theme: 'light',    // 'light' atau 'dark'
+      sessions: [],      // Array of { id, title, createdAt, messages: [ { role, text, timestamp } ] }
+      activeSessionId: null,
+      isProcessing: false
+    };
+
+    /**
+     * =========================================================
+     * 2. INISIALISASI HALAMAN, TEMA & LOADING SCREEN 3 DETIK
+     * =========================================================
+     */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Muat preferensi tema gelap/terang
+      loadThemePreference();
+
+      // Animasi persentase loading 3 detik
+      const percentEl = document.getElementById('loading-percent');
+      let startTime = null;
+      const duration = 2900; // 2.9s ramp up, 3.0s hide
+
+      function updateLoadingCounter(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(Math.round((elapsed / duration) * 100), 100);
+        if (percentEl) percentEl.textContent = progress + '%';
+        if (elapsed < duration) {
+          requestAnimationFrame(updateLoadingCounter);
+        }
+      }
+      requestAnimationFrame(updateLoadingCounter);
+
+      // Muat kedua database dari LocalStorage
+      loadApiDatabase();
+      loadMemoryDatabase();
+      renderChatMessages();
+      updateHeaderStatus();
+
+      // Hilangkan loading screen tepat setelah 3 detik
+      setTimeout(() => {
+        const loader = document.getElementById('loading-screen');
+        if (loader) {
+          loader.classList.add('fade-out');
+          setTimeout(() => loader.remove(), 500);
+        }
+      }, 3000);
+    });
+
+    /**
+     * =========================================================
+     * MODE GELAP / TERANG (DARK & LIGHT MODE)
+     * =========================================================
+     */
+    function loadThemePreference() {
+      try {
+        const savedTheme = localStorage.getItem(DB_KEYS.THEME_MODE);
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          appState.theme = savedTheme;
+        }
+      } catch (e) {
+        appState.theme = 'light';
+      }
+      applyTheme(appState.theme);
+    }
+
+    function toggleThemeMode() {
+      appState.theme = appState.theme === 'light' ? 'dark' : 'light';
+      applyTheme(appState.theme);
+      try {
+        localStorage.setItem(DB_KEYS.THEME_MODE, appState.theme);
+      } catch (e) {}
+      showToast(appState.theme === 'dark' ? 'Mode Gelap (Cyber Dark) Aktif' : 'Mode Terang (Cyber Light) Aktif');
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const iconEl = document.getElementById('theme-icon');
+      const labelEl = document.getElementById('theme-label');
+      if (iconEl && labelEl) {
+        if (theme === 'dark') {
+          iconEl.textContent = '🌙';
+          labelEl.textContent = 'GELAP';
+        } else {
+          iconEl.textContent = '☀️';
+          labelEl.textContent = 'TERANG';
+        }
+      }
+    }
+
+    /**
+     * =========================================================
+     * 3. DATABASE 1: API KEY & MODEL GEMINI (LOCALSTORAGE)
+     * =========================================================
+     */
+    function loadApiDatabase() {
+      try {
+        const raw = localStorage.getItem(DB_KEYS.API_CONFIG);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState.apiKey = parsed.apiKey || '';
+          appState.model = parsed.model || 'gemini-2.5-flash';
+          appState.modelMode = parsed.modelMode || 'auto';
+        }
+      } catch (err) {
+        console.error('Gagal membaca Database API:', err);
+      }
+
+      // Sinkronkan nilai ke form Halaman API Key
+      document.getElementById('api-key-input').value = appState.apiKey;
+      setModelSelectMode(appState.modelMode, false);
+
+      const dropdown = document.getElementById('model-select-dropdown');
+      const manualInput = document.getElementById('model-manual-input');
+      
+      // Cek apakah model ada di dropdown
+      const optionExists = Array.from(dropdown.options).some(opt => opt.value === appState.model);
+      if (optionExists && appState.modelMode === 'auto') {
+        dropdown.value = appState.model;
+      } else {
+        manualInput.value = appState.model;
+      }
+    }
+
+    function saveApiDatabase() {
+      try {
+        const payload = {
+          apiKey: appState.apiKey,
+          model: appState.model,
+          modelMode: appState.modelMode,
+          updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem(DB_KEYS.API_CONFIG, JSON.stringify(payload));
+        updateHeaderStatus();
+      } catch (err) {
+        showToast('Gagal menyimpan ke Database LocalStorage.');
+      }
+    }
+
+    function setModelSelectMode(mode, updateState = true) {
+      if (updateState) appState.modelMode = mode;
+      const btnAuto = document.getElementById('btn-mode-auto');
+      const btnManual = document.getElementById('btn-mode-manual');
+      const wrapAuto = document.getElementById('model-auto-wrapper');
+      const wrapManual = document.getElementById('model-manual-wrapper');
+
+      if (mode === 'auto') {
+        btnAuto.className = 'nb-btn px-3 py-1 text-xs nb-btn-primary';
+        btnManual.className = 'nb-btn px-3 py-1 text-xs nb-btn-secondary';
+        wrapAuto.classList.remove('hidden');
+        wrapManual.classList.add('hidden');
+      } else {
+        btnManual.className = 'nb-btn px-3 py-1 text-xs nb-btn-primary';
+        btnAuto.className = 'nb-btn px-3 py-1 text-xs nb-btn-secondary';
+        wrapManual.classList.remove('hidden');
+        wrapAuto.classList.add('hidden');
+        if (!document.getElementById('model-manual-input').value) {
+          document.getElementById('model-manual-input').value = appState.model;
+        }
+      }
+    }
+
+    function toggleApiKeyVisibility() {
+      const input = document.getElementById('api-key-input');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function saveApiConfig() {
+      const keyVal = document.getElementById('api-key-input').value.trim();
+      let selectedModel = '';
+
+      if (appState.modelMode === 'auto') {
+        selectedModel = document.getElementById('model-select-dropdown').value;
+      } else {
+        selectedModel = document.getElementById('model-manual-input').value.trim();
+        if (!selectedModel) {
+          showToast('Silakan ketik nama model Gemini terlebih dahulu.');
+          return;
+        }
+      }
+
+      if (!keyVal) {
+        showToast('API Key tidak boleh kosong! Ambil dari aistudio.google.com.');
+        return;
+      }
+
+      appState.apiKey = keyVal;
+      appState.model = selectedModel;
+      saveApiDatabase();
+      showToast(`Tersimpan! Model aktif: ${appState.model}`);
+    }
+
+    async function testApiConnection() {
+      const keyVal = document.getElementById('api-key-input').value.trim();
+      const modelVal = appState.modelMode === 'auto'
+        ? document.getElementById('model-select-dropdown').value
+        : document.getElementById('model-manual-input').value.trim();
+
+      if (!keyVal || !modelVal) {
+        showToast('Isi API Key dan Model terlebih dahulu untuk mengetes koneksi.');
+        return;
+      }
+
+      const btn = document.getElementById('test-conn-btn');
+      const originalText = btn.textContent;
+      btn.textContent = 'MENGUJI...';
+      btn.disabled = true;
+
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelVal)}:generateContent?key=${encodeURIComponent(keyVal)}`;
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text: 'Halo, balas singkat: Koneksi FRXAI v2.0 berhasil.' }] }]
+          })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error?.message || 'API Key atau Model tidak valid.');
+        }
+
+        // Otomatis simpan jika tes berhasil
+        appState.apiKey = keyVal;
+        appState.model = modelVal;
+        saveApiDatabase();
+        showToast('Koneksi Berhasil! API Key & Model aktif tersimpan.');
+      } catch (error) {
+        showToast('Gagal Terhubung: ' + error.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    function updateHeaderStatus() {
+      const dot = document.getElementById('status-dot');
+      const label = document.getElementById('header-model-label');
+      if (appState.apiKey) {
+        dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 border border-black shadow-[0_0_8px_#34d399]';
+        label.textContent = appState.model;
+      } else {
+        dot.className = 'w-2.5 h-2.5 rounded-full bg-zinc-400 border border-black';
+        label.textContent = 'Set API Key';
+      }
+    }
+
+    /**
+     * =========================================================
+     * 4. DATABASE 2: MEMORI OTAK AI & RIWAYAT CHAT (LOCALSTORAGE)
+     * =========================================================
+     */
+    function loadMemoryDatabase() {
+      try {
+        const raw = localStorage.getItem(DB_KEYS.CHAT_MEMORY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState.sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
+          appState.activeSessionId = parsed.activeSessionId || null;
+        }
+      } catch (err) {
+        console.error('Gagal membaca Database Memori:', err);
+        appState.sessions = [];
+      }
+
+      // Pastikan selalu ada minimal 1 sesi aktif
+      if (appState.sessions.length === 0) {
+        const initialSession = createSessionObject('Sesi Utama FRXAI');
+        appState.sessions.push(initialSession);
+        appState.activeSessionId = initialSession.id;
+        saveMemoryDatabase();
+      } else if (!appState.sessions.some(s => s.id === appState.activeSessionId)) {
+        appState.activeSessionId = appState.sessions[0].id;
+      }
+
+      updateMemoryStatsUI();
+    }
+
+    function saveMemoryDatabase() {
+      try {
+        const payload = {
+          sessions: appState.sessions,
+          activeSessionId: appState.activeSessionId,
+          lastSync: new Date().toISOString()
+        };
+        localStorage.setItem(DB_KEYS.CHAT_MEMORY, JSON.stringify(payload));
+        updateMemoryStatsUI();
+      } catch (err) {
+        showToast('Peringatan: Memori penyimpanan lokal penuh.');
+      }
+    }
+
+    function createSessionObject(title) {
+      return {
+        id: 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+        title: title || 'Diskusi Baru',
+        createdAt: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
+        messages: []
+      };
+    }
+
+    function getActiveSession() {
+      return appState.sessions.find(s => s.id === appState.activeSessionId) || appState.sessions[0];
+    }
+
+    function createNewChatSession() {
+      const count = appState.sessions.length + 1;
+      const newSess = createSessionObject(`Riwayat Diskusi #${count}`);
+      appState.sessions.unshift(newSess);
+      appState.activeSessionId = newSess.id;
+      saveMemoryDatabase();
+      renderChatMessages();
+      navigateTo('dashboard');
+      showToast('Riwayat baru dibuat! Otak AI siap untuk topik baru.');
+    }
+
+    function switchSession(sessionId) {
+      appState.activeSessionId = sessionId;
+      saveMemoryDatabase();
+      renderChatMessages();
+      navigateTo('dashboard');
+      showToast('Sesi percakapan dimuat dari database.');
+    }
+
+    function deleteSingleSession(sessionId) {
+      if (appState.sessions.length <= 1) {
+        // Jika hanya 1 sesi tersisa, reset isinya
+        appState.sessions[0].messages = [];
+        appState.sessions[0].title = 'Sesi Utama FRXAI';
+      } else {
+        appState.sessions = appState.sessions.filter(s => s.id !== sessionId);
+        if (appState.activeSessionId === sessionId) {
+          appState.activeSessionId = appState.sessions[0].id;
+        }
+      }
+      saveMemoryDatabase();
+      renderSessionsList();
+      renderChatMessages();
+      showToast('Sesi percakapan dihapus dari arsip.');
+    }
+
+    function exportSessionMarkdown(sessionId) {
+      const sess = appState.sessions.find(s => s.id === sessionId);
+      if (!sess || sess.messages.length === 0) {
+        showToast('Sesi ini masih kosong untuk diekspor.');
+        return;
+      }
+
+      let content = `# FRXAI v2.0 — Arsip Diskusi RPL & IT\n`;
+      content += `**Judul Sesi:** ${sess.title}\n`;
+      content += `**Dibuat:** ${sess.createdAt}\n`;
+      content += `**Developer:** Faiz Muttaqien\n\n---\n\n`;
+
+      sess.messages.forEach(m => {
+        const sender = m.role === 'user' ? 'ANDA' : 'FRXAI v2.0';
+        content += `### [${m.timestamp || ''}] ${sender}\n${m.text}\n\n---\n\n`;
+      });
+
+      const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `FRXAI_${sess.title.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('File arsip .md berhasil diunduh!');
+    }
+
+    function confirmClearAllHistory() {
+      const freshSession = createSessionObject('Sesi Utama FRXAI');
+      appState.sessions = [freshSession];
+      appState.activeSessionId = freshSession.id;
+      saveMemoryDatabase();
+      renderChatMessages();
+      renderSessionsList();
+      showToast('Seluruh riwayat chat & memori database berhasil dibersihkan.');
+      navigateTo('dashboard');
+    }
+
+    function updateMemoryStatsUI() {
+      const totalSessions = appState.sessions.length;
+      const totalMessages = appState.sessions.reduce((acc, s) => acc + s.messages.length, 0);
+      
+      const sidebarCount = document.getElementById('sidebar-msg-count');
+      if (sidebarCount) sidebarCount.textContent = `${totalMessages} Pesan`;
+
+      const clearStats = document.getElementById('clear-page-stats');
+      if (clearStats) clearStats.textContent = `${totalSessions} Sesi / ${totalMessages} Pesan`;
+    }
+
+    /**
+     * =========================================================
+     * 5. RENDER JENDELA CHAT & KOMUNIKASI KE GEMINI API (JEDA 3 DETIK)
+     * =========================================================
+     */
+    function applyQuickPrompt(promptText) {
+      const input = document.getElementById('chat-input');
+      if (input) {
+        input.value = promptText;
+        input.focus();
+      }
+    }
+
+    function renderChatMessages() {
+      const container = document.getElementById('chat-messages-container');
+      const session = getActiveSession();
+      container.innerHTML = '';
+
+      // Pesan pembuka sistem jika chat masih kosong
+      if (!session || session.messages.length === 0) {
+        const welcomeHtml = `
+          <div class="flex items-start gap-3 max-w-4xl">
+            <div class="w-9 h-9 bg-zinc-900 border-2 border-black shadow-[2px_2px_0px_#111111,0_0_12px_rgba(56,189,248,0.35)] rounded-md p-1 shrink-0 flex items-center justify-center">
+              <img 
+                src="https://cdn.phototourl.com/member/2026-11-15-88e67d02-345c-46b1-ae13-9d89bc410329.png" 
+                alt="FRXAI" 
+                class="w-full h-full object-contain"
+                onerror="this.src='https://placehold.co/48x48/111111/FFFFFF?text=FX'"
+              />
+            </div>
+            <div class="nb-box light-sweep-border p-4 sm:p-5 text-sm space-y-3 flex-1">
+              <div class="flex flex-wrap items-center gap-2 border-b pb-2" style="border-color: var(--border-color);">
+                <span class="font-bold font-mono text-xs bg-sky-400 text-black border border-black px-2 py-0.5 rounded-sm">FRXAI v2.0 CORE</span>
+                <span class="text-[11px] font-mono opacity-70">RPL • IT • Web • App • Game • Security</span>
+              </div>
+              <p class="leading-relaxed">
+                Halo! Saya <strong>FRXAI v2.0</strong>, asisten kecerdasan buatan spesialis bidang <strong>Rekayasa Perangkat Lunak (RPL), Informatika/IT, Pembuatan Website, Aplikasi, Pengembangan Game, dan Keamanan Siber (Security)</strong>.
+              </p>
+              <p class="text-xs opacity-75">
+                ${appState.apiKey 
+                  ? `Terhubung dengan model <strong class="font-mono">${appState.model}</strong>. Seluruh konteks kode & arsitektur tersimpan otomatis di database lokal.` 
+                  : `⚠️ Anda belum memasang API Key. Buka menu <strong>(=) → Halaman API Key</strong> untuk menghubungkan Google AI Studio.`}
+              </p>
+
+              <!-- Quick Starter Chips Khusus Bidang RPL, Web, Game & Security -->
+              <div class="pt-2 border-t" style="border-color: var(--border-color);">
+                <div class="text-[11px] font-mono opacity-65 mb-2">CONTOH TOPIK CEPAT (KLIK UNTUK MENGISI):</div>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" onclick="applyQuickPrompt('Buatkan arsitektur sistem dan struktur database untuk aplikasi web modern berbasis REST API.')" class="nb-btn nb-btn-secondary px-2.5 py-1 text-xs font-mono">
+                    + Arsitektur RPL & DB
+                  </button>
+                  <button type="button" onclick="applyQuickPrompt('Buatkan game 2D sederhana berbasis HTML5 Canvas dan JavaScript lengkap dengan skor dan kontrol.')" class="nb-btn nb-btn-secondary px-2.5 py-1 text-xs font-mono">
+                    + Buat Game Web 2D
+                  </button>
+                  <button type="button" onclick="applyQuickPrompt('Jelaskan cara mengamankan sistem login API menggunakan JWT, hashing password, dan pencegahan XSS/SQL Injection.')" class="nb-btn nb-btn-secondary px-2.5 py-1 text-xs font-mono">
+                    + Cybersecurity Audit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', welcomeHtml);
+        return;
+      }
+
+      // Render semua riwayat pesan dari sesi aktif
+      session.messages.forEach((msg) => {
+        appendMessageBubbleToDOM(msg.role, msg.text, msg.timestamp, false);
+      });
+
+      scrollToBottom();
+    }
+
+    function appendMessageBubbleToDOM(role, text, timestamp, shouldScroll = true) {
+      const container = document.getElementById('chat-messages-container');
+      const isUser = role === 'user';
+
+      const wrapper = document.createElement('div');
+      wrapper.className = isUser 
+        ? 'flex items-start justify-end gap-3' 
+        : 'flex items-start justify-start gap-3';
+
+      if (isUser) {
+        wrapper.innerHTML = `
+          <div style="background-color: var(--btn-dark-bg); color: var(--btn-dark-text); border-color: var(--border-color);" class="max-w-[85%] sm:max-w-[75%] border-2 shadow-[4px_4px_0px_var(--shadow-color)] rounded-md p-3.5 sm:p-4 text-sm">
+            <div class="flex items-center justify-between gap-4 border-b border-zinc-500/40 pb-1 mb-2 text-[11px] font-mono opacity-80">
+              <span>ANDA</span>
+              <span>${timestamp || ''}</span>
+            </div>
+            <div class="whitespace-pre-wrap leading-relaxed break-words">${escapeHtml(text)}</div>
+          </div>
+        `;
+      } else {
+        // Parse Markdown untuk jawaban AI
+        const parsedHtml = typeof marked !== 'undefined' ? marked.parse(text) : escapeHtml(text);
+        wrapper.innerHTML = `
+          <div class="w-9 h-9 bg-zinc-900 border-2 border-black shadow-[2px_2px_0px_#111111,0_0_10px_rgba(56,189,248,0.3)] rounded-md p-1 shrink-0 hidden sm:flex items-center justify-center">
+            <img 
+              src="https://cdn.phototourl.com/member/2026-11-15-88e67d02-345c-46b1-ae13-9d89bc410329.png" 
+              alt="FRXAI" 
+              class="w-full h-full object-contain"
+              onerror="this.src='https://placehold.co/48x48/111111/FFFFFF?text=FX'"
+            />
+          </div>
+          <div class="nb-box max-w-[92%] sm:max-w-[84%] p-3.5 sm:p-5 text-sm">
+            <div class="flex items-center justify-between gap-4 border-b pb-1.5 mb-2.5 text-[11px] font-mono opacity-75" style="border-color: var(--border-color);">
+              <span class="font-bold">FRXAI v2.0 • ${appState.model}</span>
+              <span>${timestamp || ''}</span>
+            </div>
+            <div class="markdown-body break-words">${parsedHtml}</div>
+          </div>
+        `;
+
+        // Tambahkan tombol Salin Kode otomatis pada setiap blok <pre>
+        enhanceCodeBlocks(wrapper);
+      }
+
+      container.appendChild(wrapper);
+      if (shouldScroll) scrollToBottom();
+    }
+
+    function enhanceCodeBlocks(containerEl) {
+      const preBlocks = containerEl.querySelectorAll('pre');
+      preBlocks.forEach((pre) => {
+        const codeEl = pre.querySelector('code');
+        const langClass = codeEl ? Array.from(codeEl.classList).find(c => c.startsWith('language-')) : '';
+        const langName = langClass ? langClass.replace('language-', '') : 'CODE';
+
+        const tag = document.createElement('span');
+        tag.className = 'code-lang-tag';
+        tag.textContent = langName;
+        pre.appendChild(tag);
+
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-code-btn';
+        copyBtn.textContent = 'SALIN KODE';
+        copyBtn.onclick = () => {
+          const rawCode = codeEl ? codeEl.innerText : pre.innerText;
+          copyTextFallback(rawCode);
+          copyBtn.textContent = 'TERSALIN ✓';
+          setTimeout(() => { copyBtn.textContent = 'SALIN KODE'; }, 2000);
+        };
+        pre.appendChild(copyBtn);
+      });
+    }
+
+    function copyTextFallback(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast('Kode berhasil disalin ke clipboard!');
+      } catch (err) {
+        showToast('Gagal menyalin kode.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function handleInputKeydown(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSendMessage(e);
+      }
+    }
+
+    async function handleSendMessage(e) {
+      if (e) e.preventDefault();
+      if (appState.isProcessing) return;
+
+      const inputEl = document.getElementById('chat-input');
+      const userText = inputEl.value.trim();
+      if (!userText) return;
+
+      const session = getActiveSession();
+      const nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      // Update judul sesi otomatis dari pesan pertama user
+      if (session.messages.length === 0) {
+        session.title = userText.length > 36 ? userText.substring(0, 36) + '...' : userText;
+      }
+
+      // Simpan pesan user ke state & database memori
+      session.messages.push({
+        role: 'user',
+        text: userText,
+        timestamp: nowTime
+      });
+      saveMemoryDatabase();
+
+      // Tampilkan di UI
+      appendMessageBubbleToDOM('user', userText, nowTime, true);
+      inputEl.value = '';
+
+      // Mulai status berpikir + JEDA WAJIB 3 DETIK
+      appState.isProcessing = true;
+      const sendBtn = document.getElementById('send-btn');
+      const thinkingBar = document.getElementById('ai-thinking-bar');
+      const countdownEl = document.getElementById('thinking-countdown');
+
+      sendBtn.disabled = true;
+      sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      thinkingBar.classList.remove('hidden');
+      scrollToBottom();
+
+      // Hitung mundur visual 3.0 detik
+      let remaining = 3.0;
+      countdownEl.textContent = remaining.toFixed(1) + 's';
+      const timerInterval = setInterval(() => {
+        remaining = Math.max(0, remaining - 0.1);
+        countdownEl.textContent = remaining.toFixed(1) + 's';
+      }, 100);
+
+      // Promise jeda minimal 3000ms (3 detik)
+      const threeSecondDelay = new Promise(resolve => setTimeout(resolve, 3000));
+
+      // Panggil API Gemini secara paralel dengan jeda 3 detik
+      const aiResponsePromise = fetchGeminiResponse(session.messages);
+
+      const [_, aiReplyText] = await Promise.all([threeSecondDelay, aiResponsePromise]);
+
+      clearInterval(timerInterval);
+      thinkingBar.classList.add('hidden');
+      sendBtn.disabled = false;
+      sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      appState.isProcessing = false;
+
+      const replyTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      // Simpan jawaban AI ke Database Memori agar tetap nyambung
+      session.messages.push({
+        role: 'model',
+        text: aiReplyText,
+        timestamp: replyTime
+      });
+      saveMemoryDatabase();
+
+      // Render jawaban AI ke layar
+      appendMessageBubbleToDOM('model', aiReplyText, replyTime, true);
+    }
+
+    async function fetchGeminiResponse(historyMessages) {
+      if (!appState.apiKey) {
+        return `⚠️ **API Key Google AI Studio Belum Diatur**\n\nAgar FRXAI v2.0 dapat menjawab pertanyaan seputar RPL, IT, Web, Game, dan Security:\n1. Buka menu **(=)** di pojok kiri atas.\n2. Pilih **Halaman API Key**.\n3. Masukkan API Key dari [https://aistudio.google.com](https://aistudio.google.com) dan klik **Simpan Konfigurasi**.`;
+      }
+
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(appState.model)}:generateContent?key=${encodeURIComponent(appState.apiKey)}`;
+
+        // Format seluruh riwayat percakapan dari database agar AI selalu ingat konteks
+        const formattedContents = historyMessages.map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'model',
+          parts: [{ text: msg.text }]
+        }));
+
+        const requestBody = {
+          systemInstruction: {
+            parts: [{ text: FRXAI_SYSTEM_PROMPT }]
+          },
+          contents: formattedContents,
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 4096
+          }
+        };
+
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          const errMsg = data.error?.message || 'Terjadi kesalahan saat menghubungi server Google Gemini.';
+          return `❌ **Gagal Memproses Permintaan:**\n\n\`${errMsg}\`\n\nPastikan API Key Anda valid dan model **${appState.model}** tersedia di akun Google AI Studio Anda.`;
+        }
+
+        const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!candidateText) {
+          return '⚠️ AI tidak mengembalikan teks jawaban. Silakan coba ulangi pertanyaan Anda dengan lebih spesifik.';
+        }
+
+        return candidateText;
+      } catch (error) {
+        return `❌ **Kesalahan Jaringan:** Tidak dapat terhubung ke server Gemini (${error.message}). Periksa koneksi internet Anda.`;
+      }
+    }
+
+    /**
+     * =========================================================
+     * 6. NAVIGASI MENU SIDEBAR & RENDER DAFTAR RIWAYAT
+     * =========================================================
+     */
+    function toggleSidebar() {
+      const drawer = document.getElementById('sidebar-drawer');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      const isClosed = drawer.classList.contains('-translate-x-full');
+
+      if (isClosed) {
+        drawer.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        closeSidebar();
+      }
+    }
+
+    function closeSidebar() {
+      const drawer = document.getElementById('sidebar-drawer');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      drawer.classList.add('-translate-x-full');
+      backdrop.classList.add('hidden');
+    }
+
+    function navigateTo(pageKey) {
+      // Sembunyikan semua halaman
+      document.querySelectorAll('.page-view').forEach(sec => sec.classList.add('hidden'));
+
+      // Tampilkan halaman tujuan
+      const target = document.getElementById(`page-${pageKey}`);
+      if (target) target.classList.remove('hidden');
+
+      // Update style tombol navigasi aktif
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        if (btn.dataset.nav === pageKey) {
+          btn.className = 'nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-primary';
+        } else {
+          btn.className = 'nav-item w-full text-left nb-btn px-3.5 py-3 flex items-center gap-3 nb-btn-secondary';
+        }
+      });
+
+      // Update badge judul halaman di header
+      const badgeMap = {
+        dashboard: 'DASHBOARD AI',
+        apikey: 'KONFIGURASI API',
+        newchat: 'RIWAYAT BARU',
+        clearhistory: 'HAPUS MEMORI',
+        profile: 'PROFIL DEVELOPER'
+      };
+      const badgeEl = document.getElementById('active-page-badge');
+      if (badgeEl) badgeEl.textContent = badgeMap[pageKey] || 'FRXAI';
+
+      // Refresh data khusus jika membuka halaman tertentu
+      if (pageKey === 'newchat') renderSessionsList();
+      if (pageKey === 'clearhistory') updateMemoryStatsUI();
+      if (pageKey === 'dashboard') scrollToBottom();
+
+      closeSidebar();
+    }
+
+    function renderSessionsList() {
+      const listContainer = document.getElementById('sessions-list-container');
+      if (!listContainer) return;
+
+      listContainer.innerHTML = '';
+      appState.sessions.forEach((sess) => {
+        const isActive = sess.id === appState.activeSessionId;
+        const card = document.createElement('div');
+        card.style.borderColor = 'var(--border-color)';
+        card.className = `border-2 p-3.5 rounded-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all ${
+          isActive 
+            ? 'nb-box shadow-[4px_4px_0px_var(--shadow-color),0_0_16px_var(--glow-primary)]' 
+            : 'nb-surface-alt shadow-[3px_3px_0px_var(--shadow-color)]'
+        }`;
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm">${escapeHtml(sess.title)}</span>
+              ${isActive ? '<span class="text-[10px] font-mono bg-sky-400 text-black border border-black px-1.5 py-0.5 rounded-sm font-bold">AKTIF</span>' : ''}
+            </div>
+            <div class="text-xs font-mono mt-1 opacity-70">
+              Dibuat: ${sess.createdAt} • ${sess.messages.length} Pesan tersimpan
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <button 
+              onclick="exportSessionMarkdown('${sess.id}')" 
+              class="nb-btn nb-btn-secondary px-3 py-1.5 text-xs font-mono"
+              title="Unduh Arsip Percakapan (.md)"
+            >
+              EKSPOR .MD
+            </button>
+            <button 
+              onclick="deleteSingleSession('${sess.id}')" 
+              class="nb-btn nb-btn-secondary px-2.5 py-1.5 text-xs font-mono"
+              title="Hapus Sesi Ini"
+            >
+              HAPUS
+            </button>
+            <button 
+              onclick="switchSession('${sess.id}')" 
+              class="nb-btn nb-btn-primary px-4 py-1.5 text-xs font-mono"
+            >
+              ${isActive ? 'BUKA CHAT' : 'LANJUTKAN →'}
+            </button>
+          </div>
+        `;
+        listContainer.appendChild(card);
+      });
+    }
+
+    /**
+     * =========================================================
+     * 7. HELPER UTILITIES
+     * =========================================================
+     */
+    function scrollToBottom() {
+      const container = document.getElementById('chat-messages-container');
+      if (container) {
+        setTimeout(() => {
+          container.scrollTop = container.scrollHeight;
+        }, 50);
+      }
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    let toastTimeout = null;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const msgEl = document.getElementById('toast-message');
+      msgEl.textContent = msg;
+      box.classList.remove('hidden');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        hideToast();
+      }, 4000);
+    }
+
+    function hideToast() {
+      const box = document.getElementById('toast-box');
+      if (box) box.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
